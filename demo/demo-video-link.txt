@@ -1,15 +1,8 @@
-https://youtu.be/your-demo-video-link-here
+PENDING — will be updated with a real video URL before final submission.
 
-Replace the URL above with a link to your demo video.
+Instructions for reviewers:
+  1. Clone the repo
+  2. Run: python src/app.py
+  3. Open: http://localhost:8000
 
-Accepted platforms:
-  - YouTube (public or unlisted)
-  - Loom (https://www.loom.com/share/...)
-  - IBM Box (https://ibm.box.com/s/...)
-  - Google Drive (set to "Anyone with the link can view")
-
-Video requirements:
-  - Length: 3–5 minutes maximum
-  - Must show the application running (not just slides)
-  - Should walk through at least one key feature end-to-end
-  - Audio narration strongly recommended
+The demo video will be hosted on YouTube or Loom and linked here.

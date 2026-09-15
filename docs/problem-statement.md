@@ -1,21 +1,29 @@
-# Problem Statement
-
 ## Background
 
-[Describe the broader context. What domain or industry does this problem belong to? What situation creates the problem?]
+Modern supply chains span hundreds of routes, carriers, and vehicles. Logistics operators routinely deal with shipment disruptions (weather, road closures, port congestion), suboptimal fleet utilisation (idle trucks at depots), and cold-chain failures (refrigerated cargo drifting outside its safe temperature window). These events are tracked across multiple siloed systems, making it hard for a single operator to act quickly.
 
 ## The Problem
 
-[State the problem clearly and specifically. Avoid vague statements like "things are slow" — instead say "Operations teams spend an average of 45 minutes per incident diagnosing pipeline failures because logs are scattered across 6 different tools."]
+Logistics teams lack a unified, real-time view that combines:
+1. **Shipment disruption signals** — delayed or blocked consignments across all carriers
+2. **Actionable reroute suggestions** — specific alternate paths, not just "contact carrier"
+3. **Idle fleet alerts** — vehicles sitting unused beyond a time threshold
+4. **Cold-chain temperature breach notifications** — reefer trucks breaching their min/max band
 
-## Who is Affected
+The result is delayed responses, spoiled goods, higher carrier costs, and poor fleet utilisation.
 
-[Describe the specific user or persona experiencing this problem. Be concrete — not "developers" but "backend engineers managing CI/CD pipelines in enterprises with 50+ microservices."]
+## Who Is Affected
+
+- **Logistics / dispatch coordinators** who monitor dozens of active shipments per shift
+- **Fleet managers** responsible for truck utilisation KPIs
+- **Cold-chain compliance officers** who must document temperature excursions
 
 ## Why It Matters
 
-[What is the cost of this problem? Lost time? Revenue? Safety risk? Frustration? Quantify if possible.]
+- A single delayed shipment can cascade into missed SLAs worth thousands in penalties.
+- Reefer temperature excursions can render an entire load non-compliant, causing write-offs.
+- Idle trucks represent direct revenue loss (fixed costs with no throughput).
 
 ## Why Existing Solutions Fall Short
 
-[Briefly explain what people currently do and why it doesn't fully solve the problem. This sets up why your solution is needed.]
+Most transport management systems (TMS) surface data in separate modules without a unified alert layer. They require costly integrations and trained administrators. There is no lightweight, zero-dependency tool a small logistics team can run locally in minutes.

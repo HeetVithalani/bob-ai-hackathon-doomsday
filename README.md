@@ -1,6 +1,6 @@
-# 🚀 [Your Project Title Here]
+# 🚚 Supply Chain Disruption Assistant & Fleet Utilisation Optimizer
 
-> ⚠️ **Replace everything in `[ ]` brackets with your actual content before submission.**
+> **Team Doomsday — IBM Bob AI Hackathon | Problem L2**
 
 ---
 
@@ -8,36 +8,32 @@
 
 | Field | Value |
 |---|---|
-| **Team Name** | [Your Team Name] |
-| **Track** | [AI / DevOps / Sustainability / Open] |
-| **Team Lead** | [Name] — [email@ibm.com] |
-| **Members** | [Name 1], [Name 2], [Name 3] |
+| **Team Name** | Doomsday |
+| **Track** | AI |
+| **Team Lead** | Heet Vithalani Kunjeshbhai — heetkv9@gmail.com |
+| **Members** | Heet Vithalani Kunjeshbhai |
 
 ---
 
 ## 🎯 Problem Statement
 
-> In 2–3 sentences: What problem does your project solve? Who experiences this problem?
-
-[Describe the real-world problem your project addresses. Be specific about who the user is and what pain point they face.]
+Supply chain managers face daily disruptions — delayed shipments, blocked routes, idle trucks sitting at depots, and refrigerated cargo drifting out of temperature band — but lack a single consolidated view to act on all of them at once. The result is missed SLAs, spoiled goods, and underutilised fleet assets.
 
 ---
 
 ## 💡 Solution
 
-> In 2–3 sentences: What did you build? How does it solve the problem above?
-
-[Describe your solution clearly. Explain the core mechanism — what makes it work.]
+We built a local, zero-dependency Python dashboard that ingests synthetic supply-chain telemetry, runs rule-based detection across four disruption categories, and surfaces actionable recommendations in a live auto-refreshing web UI. A logistics operator opens one browser tab and immediately sees every disrupted shipment, its recommended reroute, every idle vehicle, and every cold-chain temperature breach — no cloud, no database, no install step beyond `python src/app.py`.
 
 ---
 
 ## ✨ Key Features
 
-- **Feature 1:** [Brief description — e.g., "Real-time anomaly detection using watsonx.ai"]
-- **Feature 2:** [Brief description]
-- **Feature 3:** [Brief description]
-- **Feature 4:** [Optional]
-- **Feature 5:** [Optional]
+- **Shipment Disruption Detection:** Automatically flags delayed and blocked shipments from the live telemetry feed.
+- **Rerouting Recommendations:** For each disrupted shipment, suggests a specific alternate route with a plain-English reason.
+- **Idle Fleet Detection:** Identifies vehicles idle beyond a configurable threshold and shows their last known location.
+- **Cold-Chain Temperature Alerts:** Monitors reefer truck temperatures and raises directional alerts (too high / too low) on any breach.
+- **Live Dashboard:** Single-page auto-refreshing UI with KPI summary cards and colour-coded status tables — no external JS dependencies.
 
 ---
 
@@ -45,51 +41,53 @@
 
 | Category | Technologies |
 |---|---|
-| **Languages** | [e.g., Python, TypeScript] |
-| **Frameworks** | [e.g., FastAPI, React] |
-| **IBM Technologies** | [e.g., watsonx.ai, IBM Bob, IBM Cloud] |
-| **Databases** | [e.g., PostgreSQL, Redis] |
-| **Other** | [e.g., Docker, GitHub Actions] |
+| **Languages** | Python 3.x |
+| **Frameworks** | Python `http.server` (stdlib), Vanilla JS |
+| **IBM Technologies** | IBM Bob (AI assistant used during development) |
+| **Databases** | None — in-memory synthetic data |
+| **Other** | HTML5, CSS3 |
 
 ---
 
 ## 📁 Repository Structure
 
 ```
-├── src/                  # All source code
-├── docs/                 # Written documentation
+├── src/
+│   ├── app.py            # HTTP server (stdlib http.server)
+│   ├── data.py           # Synthetic data generator
+│   ├── engine.py         # Detection & recommendation logic
+│   └── dashboard.html    # Single-page dashboard UI
+├── docs/
 │   ├── problem-statement.md
 │   ├── solution-overview.md
 │   ├── architecture.md
 │   └── setup-guide.md
-├── demo/                 # Demo artifacts
-│   ├── screenshots/      # App screenshots
-│   └── demo-video-link.txt  # Link to demo video
-├── presentation/         # Slide deck
-└── submission.yaml       # Structured submission metadata
+├── demo/
+│   ├── screenshots/
+│   └── demo-video-link.txt
+├── presentation/
+└── submission.yaml
 ```
 
 ---
 
 ## ⚡ How to Run
 
-> **Copy these exact steps from your [`docs/setup-guide.md`](docs/setup-guide.md)**
-
 ```bash
 # 1. Clone the repo
-git clone https://github.com/[your-repo].git
-cd [your-repo]
+git clone https://github.com/heetvitalani/bob-ai-hackathon-doomsday.git
+cd bob-ai-hackathon-doomsday
 
-# 2. Install dependencies
-[your install command here]
+# 2. No dependencies to install — Python stdlib only
 
-# 3. Configure environment
-cp .env.example .env
-# Edit .env with your values
+# 3. Run the server
+python src/app.py
 
-# 4. Run the project
-[your run command here]
+# 4. Open the dashboard
+#    http://localhost:8000
 ```
+
+Requires **Python 3.7+** only. No `pip install` needed.
 
 ---
 
@@ -100,22 +98,19 @@ cp .env.example .env
 | 📹 Demo Video | [See demo/demo-video-link.txt](demo/demo-video-link.txt) |
 | 🌐 Live Demo | [See demo/live-demo-url.txt](demo/live-demo-url.txt) |
 | 🖼️ Screenshots | [See demo/screenshots/](demo/screenshots/) |
-| 📊 Presentation | [See presentation/slides.pdf](presentation/) |
+| 📊 Presentation | [See presentation/](presentation/) |
 
 ---
 
 ## ⚠️ Known Limitations
 
-> Be honest — judges appreciate transparency over overclaiming.
-
-- [Limitation 1: e.g., "Authentication is mocked — not production-ready"]
-- [Limitation 2: e.g., "Only tested on Chrome"]
-- [Limitation 3: e.g., "Feature X is scaffolded but not fully implemented"]
+- All data is synthetic and deterministic — not connected to real shipment systems.
+- Reroute recommendations are rule-based (lookup table), not ML-driven.
+- No authentication or multi-user support — single-user local tool only.
+- Tested on Python 3.9–3.12 and Chrome/Firefox.
 
 ---
 
 ## 🏅 What We're Most Proud Of
 
-[Tell the judges what part of your submission is strongest and worth paying close attention to.]
-
----
+The entire solution runs with `python src/app.py` — zero pip installs, zero config, zero cloud dependencies. Despite that constraint, it surfaces all five required capabilities (disruption detection, rerouting, idle fleet, cold-chain alerts, dashboard) in a clean, readable UI that auto-refreshes every 10 seconds. The separation between `data.py`, `engine.py`, and `app.py` also makes it straightforward to swap in real data sources later.

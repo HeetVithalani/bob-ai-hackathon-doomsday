@@ -1,49 +1,52 @@
-# Architecture
-
 ## System Architecture
-
-[Describe the overall architecture of your system. Replace the Mermaid diagram below with your actual architecture.]
 
 ```mermaid
 graph TD
-    A[User / Browser] -->|HTTP| B[Frontend - React]
-    B -->|REST API| C[Backend - FastAPI]
-    C -->|SDK| D[watsonx.ai]
-    C -->|Query| E[PostgreSQL]
-    C -->|Publish| F[Slack Webhook]
-    D -->|Inference Result| C
+    Browser["Browser - localhost:8000"]
+    AppPy["app.py - HTTPServer stdlib"]
+    DataPy["data.py - Synthetic Generator"]
+    EnginePy["engine.py - Detection Logic"]
+    HTML["dashboard.html - Vanilla JS UI"]
+
+    Browser -->|GET /| AppPy
+    Browser -->|GET /api/status every 10s| AppPy
+    AppPy -->|import generate_shipments| DataPy
+    AppPy -->|import generate_fleet| DataPy
+    DataPy -->|shipments + fleet dicts| EnginePy
+    AppPy -->|import run_all| EnginePy
+    EnginePy -->|disruptions, reroutes, idle, cold-chain| AppPy
+    AppPy -->|JSON response| Browser
+    AppPy -->|HTML file| HTML
+    HTML -->|fetch + DOM update| Browser
 ```
 
 ## Components
 
-| Component | Technology | Responsibility |
-|---|---|---|
-| Frontend | [e.g., React 18] | [e.g., Dashboard UI, user interaction] |
-| Backend API | [e.g., FastAPI] | [e.g., Business logic, orchestration] |
-| AI / ML | [e.g., watsonx.ai] | [e.g., Anomaly scoring, classification] |
-| Database | [e.g., PostgreSQL] | [e.g., Storing pipeline events and scores] |
-| Notifications | [e.g., Slack API] | [e.g., Alerting on threshold breaches] |
+| Component | File | Technology | Responsibility |
+|---|---|---|---|
+| HTTP Server | `src/app.py` | Python `http.server` (stdlib) | Routes requests; serves HTML and JSON |
+| Data Generator | `src/data.py` | Python `random` (stdlib) | Produces deterministic synthetic shipment and fleet data |
+| Detection Engine | `src/engine.py` | Pure Python | Disruption detection, reroute lookup, idle fleet filter, cold-chain alert |
+| Dashboard UI | `src/dashboard.html` | HTML5 + CSS3 + Vanilla JS | Displays KPI cards and five data tables; auto-polls API |
 
 ## Data Flow
 
-[Describe how data moves through your system from input to output.]
-
-1. [e.g., Pipeline logs are ingested via a webhook from GitHub Actions]
-2. [e.g., Logs are preprocessed and chunked into 512-token segments]
-3. [e.g., Each chunk is sent to the watsonx.ai inference endpoint]
-4. [e.g., Anomaly scores are stored in PostgreSQL]
-5. [e.g., The React dashboard polls the API every 30 seconds to refresh]
+1. Browser requests `GET /api/status`
+2. `app.py` calls `data.generate_shipments()` and `data.generate_fleet()` — returns plain Python dicts
+3. `engine.run_all(shipments, fleet)` applies four rule-based detectors and returns a single result dict
+4. `app.py` serialises the result to JSON and writes the HTTP response
+5. `dashboard.html` JavaScript receives the JSON, updates KPI counters and all five table bodies, and shows a timestamp
 
 ## Security Considerations
 
-[Note any security decisions relevant to the architecture — even if basic.]
-
-- [e.g., API keys stored in environment variables, never committed to git]
-- [e.g., All API routes require a Bearer token]
-- [e.g., Database credentials rotated via IBM Secrets Manager]
+- Binds to `localhost` only (not `0.0.0.0`) — not exposed to the network
+- No user input is accepted or evaluated
+- No secrets, credentials, or environment variables are required
 
 ## Scalability Notes
 
-[Optional: how would this scale beyond the hackathon prototype?]
-
-[e.g., "The FastAPI backend is stateless and could be horizontally scaled behind a load balancer. The watsonx.ai calls are the bottleneck and would benefit from request batching."]
+This is a local MVP. To scale:
+- Replace `data.py` with a real TMS API client
+- Replace `engine.py` rule tables with ML-based anomaly detection
+- Replace `http.server` with FastAPI or Flask for async handling
+- Add a real-time push layer (WebSocket or Server-Sent Events) instead of client polling

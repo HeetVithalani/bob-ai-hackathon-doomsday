@@ -1,79 +1,86 @@
 # Setup Guide
 
-> **This file is read by the automated evaluation pipeline. Be precise and complete.**
-
 ## Prerequisites
 
-Before you begin, ensure you have the following installed:
+- [ ] **Python 3.7 or higher** — `python --version` or `python3 --version`
+- [ ] **A modern web browser** — Chrome, Firefox, Edge, or Safari
+- [ ] **Git** (to clone the repo)
 
-- [ ] [e.g., Python 3.11+]
-- [ ] [e.g., Node.js 18+]
-- [ ] [e.g., Docker Desktop]
-- [ ] [e.g., An IBM Cloud account with watsonx.ai access]
+No other tools, packages, or services are required.
 
 ## Environment Variables
 
-Copy `.env.example` to `.env` and fill in the values:
+None required. The app runs with zero configuration out of the box.
 
-```bash
-cp .env.example .env
-```
+Optional override:
 
-| Variable | Description | Required |
+| Variable | Default | Description |
 |---|---|---|
-| `WATSONX_API_KEY` | Your IBM watsonx.ai API key | Yes |
-| `WATSONX_PROJECT_ID` | Your watsonx.ai project ID | Yes |
-| `DATABASE_URL` | PostgreSQL connection string | Yes |
-| `SLACK_WEBHOOK_URL` | Slack webhook for alerts | No |
+| `APP_PORT` | `8000` | Port the server listens on |
+
+Example: `APP_PORT=9000 python src/app.py`
 
 ## Installation
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/[your-org]/[your-repo].git
-cd [your-repo]
+git clone https://github.com/heetvitalani/bob-ai-hackathon-doomsday.git
+cd bob-ai-hackathon-doomsday
 
-# 2. Install backend dependencies
-[your command — e.g.: pip install -r requirements.txt]
-
-# 3. Install frontend dependencies (if applicable)
-[your command — e.g.: cd frontend && npm install]
-
-# 4. Set up the database (if applicable)
-[your command — e.g.: python manage.py migrate]
+# 2. No pip install needed — Python stdlib only
 ```
 
 ## Running the Application
 
 ```bash
-# Start the backend
-[your command — e.g.: uvicorn app.main:app --reload]
-
-# Start the frontend (in a separate terminal, if applicable)
-[your command — e.g.: cd frontend && npm run dev]
+python src/app.py
 ```
 
-The application will be available at: `http://localhost:[PORT]`
+Expected output:
+```
+Supply Chain MVP running at http://localhost:8000
+  Dashboard : http://localhost:8000/
+  API       : http://localhost:8000/api/status
+Press Ctrl-C to stop.
+```
+
+Then open **http://localhost:8000** in your browser.
+
+## Verifying the API
+
+```bash
+# Verify the JSON endpoint (PowerShell)
+Invoke-WebRequest -Uri http://localhost:8000/api/status | Select-Object -ExpandProperty Content
+
+# Or with curl (if available)
+curl http://localhost:8000/api/status
+```
+
+Expected: a JSON object with keys `summary`, `shipments`, `fleet`, `disruptions`, `reroutes`, `idle_vehicles`, `cold_chain_alerts`.
 
 ## Running Tests
 
-```bash
-[your test command — e.g.: pytest tests/ -v]
-```
-
-## Quick Demo (Optional)
-
-If you have a demo script or sample data to showcase the project quickly:
+No test runner is required. To smoke-test the modules directly:
 
 ```bash
-[e.g.: python demo/seed_demo_data.py]
-[e.g.: open http://localhost:8000/demo]
+# From the repo root
+python -c "import sys; sys.path.insert(0,'src'); import data, engine; print(engine.run_all(data.generate_shipments(), data.generate_fleet())['summary'])"
 ```
+
+Expected output (approximate):
+```
+{'total_shipments': 15, 'disruptions': 5, 'reroutes': 5, 'idle_vehicles': 3, 'cold_chain_alerts': 2, 'total_fleet': 12}
+```
+
+## Stopping the Server
+
+Press **Ctrl-C** in the terminal where `app.py` is running.
 
 ## Troubleshooting
 
-| Issue | Solution |
-|---|---|
-| [e.g., `ModuleNotFoundError`] | [e.g., Run `pip install -r requirements.txt` again] |
-| [e.g., Database connection refused] | [e.g., Ensure PostgreSQL is running: `docker compose up db`] |
-| [e.g., watsonx.ai 401 error] | [e.g., Check `WATSONX_API_KEY` in your `.env` file] |
+| Issue | Cause | Fix |
+|---|---|---|
+| `Address already in use` | Port 8000 is taken | `APP_PORT=8001 python src/app.py` |
+| `ModuleNotFoundError: No module named 'data'` | Running from wrong directory | Run `python src/app.py` from the repo root |
+| Browser shows blank page | JS fetch failed | Check terminal for errors; ensure server is running |
+| `python` not found | Python not on PATH | Try `python3 src/app.py` |

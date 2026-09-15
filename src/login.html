@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Supply Chain Dashboard — Sign In</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      background: #f0f2f5;
+      color: #1f2328;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Top bar (matches dashboard header) ── */
+    header {
+      background: #1a1f2e;
+      color: #e8eaf0;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+    }
+    header h1 { font-size: 17px; font-weight: 600; letter-spacing: 0.3px; }
+    header h1 span { color: #60a5fa; }
+
+    /* ── Centred card ── */
+    .auth-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+    }
+
+    .auth-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 36px 40px;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .auth-card h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a1f2e;
+      margin-bottom: 6px;
+    }
+    .auth-card .subtitle {
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 28px;
+    }
+
+    /* ── Form elements ── */
+    .field { margin-bottom: 18px; }
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #475569;
+      margin-bottom: 6px;
+    }
+    .field input {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+      color: #1f2328;
+      background: #fff;
+      transition: border-color 0.15s;
+      outline: none;
+    }
+    .field input:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    .field input.error { border-color: #dc2626; }
+
+    /* ── Submit button ── */
+    .btn-primary {
+      width: 100%;
+      padding: 10px;
+      background: #1a1f2e;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+      margin-top: 4px;
+    }
+    .btn-primary:hover { background: #2d3548; }
+
+    /* ── Error / success messages ── */
+    .msg {
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-bottom: 18px;
+      display: none;
+    }
+    .msg.error   { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; display: block; }
+    .msg.success { background: #dcfce7; color: #166534; border: 1px solid #86efac; display: block; }
+
+    /* ── Toggle link ── */
+    .toggle-link {
+      text-align: center;
+      margin-top: 22px;
+      font-size: 13px;
+      color: #64748b;
+    }
+    .toggle-link a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .toggle-link a:hover { text-decoration: underline; }
+
+    /* ── Panel visibility ── */
+    .panel { display: none; }
+    .panel.active { display: block; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🚚 Supply Chain Dashboard — <span>Team Doomsday</span></h1>
+</header>
+
+<div class="auth-wrap">
+  <div class="auth-card">
+
+    <!-- ── LOGIN PANEL ── -->
+    <div id="panel-login" class="panel active">
+      <h2>Sign In</h2>
+      <p class="subtitle">Enter your credentials to access the dashboard.</p>
+      <div id="login-msg" class="msg"></div>
+      <form id="form-login" novalidate>
+        <div class="field">
+          <label for="login-email">Email</label>
+          <input id="login-email" type="email" placeholder="you@example.com" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="login-password">Password</label>
+          <input id="login-password" type="password" placeholder="••••••••" autocomplete="current-password" required />
+        </div>
+        <button type="submit" class="btn-primary">Sign In</button>
+      </form>
+      <div class="toggle-link">
+        Don't have an account? <a id="go-register">Register</a>
+      </div>
+    </div>
+
+    <!-- ── REGISTER PANEL ── -->
+    <div id="panel-register" class="panel">
+      <h2>Create Account</h2>
+      <p class="subtitle">Register to access the Supply Chain Dashboard.</p>
+      <div id="register-msg" class="msg"></div>
+      <form id="form-register" novalidate>
+        <div class="field">
+          <label for="reg-name">Full Name</label>
+          <input id="reg-name" type="text" placeholder="Jane Smith" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="reg-email">Email</label>
+          <input id="reg-email" type="email" placeholder="you@example.com" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="reg-password">Password</label>
+          <input id="reg-password" type="password" placeholder="Min. 6 characters" autocomplete="new-password" required />
+        </div>
+        <div class="field">
+          <label for="reg-confirm">Confirm Password</label>
+          <input id="reg-confirm" type="password" placeholder="Repeat password" autocomplete="new-password" required />
+        </div>
+        <button type="submit" class="btn-primary">Create Account</button>
+      </form>
+      <div class="toggle-link">
+        Already have an account? <a id="go-login">Sign In</a>
+      </div>
+    </div>
+
+  </div><!-- /.auth-card -->
+</div><!-- /.auth-wrap -->
+
+<script>
+  // ── Storage keys ──────────────────────────────────────────────────────
+  const USERS_KEY   = "sc_users";    // JSON array of { name, email, passwordHash }
+  const SESSION_KEY = "sc_session";  // JSON { email, name } or null
+
+  // ── Simple hash (djb2 — good enough for a local demo) ────────────────
+  function hashPassword(pw) {
+    let h = 5381;
+    for (let i = 0; i < pw.length; i++) h = ((h << 5) + h) ^ pw.charCodeAt(i);
+    return (h >>> 0).toString(16);
+  }
+
+  // ── User store helpers ────────────────────────────────────────────────
+  function getUsers() {
+    try { return JSON.parse(localStorage.getItem(USERS_KEY) || "[]"); }
+    catch { return []; }
+  }
+  function saveUsers(users) {
+    localStorage.setItem(USERS_KEY, JSON.stringify(users));
+  }
+  function findUser(email) {
+    return getUsers().find(u => u.email.toLowerCase() === email.toLowerCase());
+  }
+
+  // ── Session helpers ───────────────────────────────────────────────────
+  function getSession() {
+    try { return JSON.parse(localStorage.getItem(SESSION_KEY)); }
+    catch { return null; }
+  }
+  function setSession(user) {
+    localStorage.setItem(SESSION_KEY, JSON.stringify({ email: user.email, name: user.name }));
+  }
+
+  // If already logged in, go straight to dashboard
+  if (getSession()) window.location.replace("/");
+
+  // ── Panel switching ───────────────────────────────────────────────────
+  function showPanel(id) {
+    document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+    // Clear messages and errors on switch
+    document.querySelectorAll(".msg").forEach(m => { m.className = "msg"; m.textContent = ""; });
+    document.querySelectorAll("input").forEach(i => i.classList.remove("error"));
+  }
+
+  document.getElementById("go-register").addEventListener("click", () => showPanel("panel-register"));
+  document.getElementById("go-login").addEventListener("click",    () => showPanel("panel-login"));
+
+  function showMsg(id, type, text) {
+    const el = document.getElementById(id);
+    el.className = "msg " + type;
+    el.textContent = text;
+  }
+
+  // ── Register ─────────────────────────────────────────────────────────
+  document.getElementById("form-register").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const name     = document.getElementById("reg-name").value.trim();
+    const email    = document.getElementById("reg-email").value.trim();
+    const password = document.getElementById("reg-password").value;
+    const confirm  = document.getElementById("reg-confirm").value;
+
+    // Validation
+    if (!name) {
+      showMsg("register-msg", "error", "Full name is required.");
+      document.getElementById("reg-name").classList.add("error");
+      return;
+    }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showMsg("register-msg", "error", "Enter a valid email address.");
+      document.getElementById("reg-email").classList.add("error");
+      return;
+    }
+    if (password.length < 6) {
+      showMsg("register-msg", "error", "Password must be at least 6 characters.");
+      document.getElementById("reg-password").classList.add("error");
+      return;
+    }
+    if (password !== confirm) {
+      showMsg("register-msg", "error", "Passwords do not match.");
+      document.getElementById("reg-confirm").classList.add("error");
+      return;
+    }
+    if (findUser(email)) {
+      showMsg("register-msg", "error", "An account with this email already exists.");
+      document.getElementById("reg-email").classList.add("error");
+      return;
+    }
+
+    // Save user
+    const users = getUsers();
+    users.push({ name, email, passwordHash: hashPassword(password) });
+    saveUsers(users);
+
+    showMsg("register-msg", "success", "Account created! Redirecting to sign in…");
+    this.reset();
+    setTimeout(() => showPanel("panel-login"), 1200);
+  });
+
+  // ── Login ─────────────────────────────────────────────────────────────
+  document.getElementById("form-login").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const email    = document.getElementById("login-email").value.trim();
+    const password = document.getElementById("login-password").value;
+
+    if (!email) {
+      showMsg("login-msg", "error", "Email is required.");
+      document.getElementById("login-email").classList.add("error");
+      return;
+    }
+    if (!password) {
+      showMsg("login-msg", "error", "Password is required.");
+      document.getElementById("login-password").classList.add("error");
+      return;
+    }
+
+    const user = findUser(email);
+    if (!user || user.passwordHash !== hashPassword(password)) {
+      showMsg("login-msg", "error", "Invalid email or password.");
+      document.getElementById("login-email").classList.add("error");
+      document.getElementById("login-password").classList.add("error");
+      return;
+    }
+
+    setSession(user);
+    window.location.replace("/");
+  });
+</script>
+
+</body>
+</html>
