@@ -95,10 +95,9 @@ Requires **Python 3.7+** only. No `pip install` needed.
 
 | Artifact | Link |
 |---|---|
-| 📹 Demo Video | [See demo/demo-video-link.txt](demo/demo-video-link.txt) |
-| 🌐 Live Demo | [See demo/live-demo-url.txt](demo/live-demo-url.txt) |
-| 🖼️ Screenshots | [See demo/screenshots/](demo/screenshots/) |
-| 📊 Presentation | [See presentation/](presentation/) |
+| 📸 Screenshots | [Google Drive – Screenshots](https://drive.google.com/drive/folders/1glEGnCTZw-SQmLYGnhkjDLbv-wDha06o) |
+| 📊 Presentation / PPT | [Google Drive – PPT](https://drive.google.com/drive/folders/1PWBE7DLH4YYQvshuq_METm3D5LeyCkik) |
+| 🎥 Demo / Video | [Google Drive – Demo](https://drive.google.com/drive/folders/1CNbrUfeBtZLcErYqVEmU78TdLeL1utp) |
 
 ---
 
@@ -106,7 +105,7 @@ Requires **Python 3.7+** only. No `pip install` needed.
 
 - All data is synthetic and deterministic — not connected to real shipment systems.
 - Reroute recommendations are rule-based (lookup table), not ML-driven.
-- No authentication or multi-user support — single-user local tool only.
+- Authentication is implemented locally for demo purposes; there is no production-grade multi-user backend.
 - Tested on Python 3.9–3.12 and Chrome/Firefox.
 
 ---
