@@ -10,8 +10,11 @@
 |---|---|
 | **Team Name** | Doomsday |
 | **Track** | AI |
-| **Team Lead** | Heet Vithalani Kunjeshbhai — heetkv9@gmail.com |
-| **Members** | Heet Vithalani Kunjeshbhai |
+| **Team Lead** | Fenil Thumbar - d24dce149@charusat.edu.in|
+| **Members** | Fenil Thumbar - d24dce149@charusat.edu.in|
+              | Heet Vithalani - d24dce144@charusat.edu.in|
+              | Dhruvil Bhavinbhai Patel - d24dce149@charusat.edu.in|
+              | Jikadra meet p - -jikadrameet44@gmail.com|
 
 ---
 
