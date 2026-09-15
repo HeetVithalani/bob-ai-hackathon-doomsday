@@ -11,10 +11,7 @@
 | **Team Name** | Doomsday |
 | **Track** | AI |
 | **Team Lead** | Fenil Thumbar - d24dce149@charusat.edu.in|
-| **Members** | Fenil Thumbar - d24dce149@charusat.edu.in|
-              | Heet Vithalani - d24dce144@charusat.edu.in|
-              | Dhruvil Bhavinbhai Patel - d24dce149@charusat.edu.in|
-              | Jikadra meet p - -jikadrameet44@gmail.com|
+| **Members** | Fenil Thumbar - d24dce149@charusat.edu.in|| Heet Vithalani - d24dce144@charusat.edu.in|| Dhruvil Bhavinbhai Patel - d24dce149@charusat.edu.in|| Jikadra meet p - -jikadrameet44@gmail.com|
 
 ---
 
